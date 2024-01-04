@@ -6,8 +6,11 @@ import IElectronApi from '../interfaces/IElectronApi';
 import ILockfileData from '../interfaces/ILockfileData';
 
 export default class ElectronApi implements IElectronApi {
-  getLeagueOfLegendsPath(file: HTMLElement) {
-    localStorage.setItem('Lockfile', file.files[0].path.replaceAll('LeagueClient.exe', 'lockfile'));
+  //getLeagueOfLegendsPath(file: HTMLElement) {
+  getLeagueOfLegendsPath(lockfilepath: String) {
+    //Disable HTMLElement (Filebrowserselection) for Dev reasons
+    //localStorage.setItem('Lockfile', file.files[0].path.replaceAll('LeagueClient.exe', 'lockfile'));
+    localStorage.setItem('Lockfile', lockfilepath);
   }
 
   setLeagueOfLegendsPath() {
@@ -15,6 +18,7 @@ export default class ElectronApi implements IElectronApi {
   }
 
   async getLockfileContent() {
+    console.log('window.api:', window.api)
     window.api.watch();
     const lockfileData = (await window.api.requestData()) as ILockfileData;
     return lockfileData;
